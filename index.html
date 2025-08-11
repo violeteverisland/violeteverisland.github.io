@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -24,7 +24,7 @@
 <meta property="og:title" content="violeteverisland">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="violeteverisland">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="violeteverisland">
 <meta name="twitter:card" content="summary">
 
@@ -37,7 +37,7 @@
     sidebar: "",
     isHome : true,
     isPost : false,
-    lang   : 'en'
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -73,7 +73,7 @@
 </noscript>
 
 </head>
-
+<script src="/live2d-widget/autoload.js"></script>
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
     <div class="headband"></div>
@@ -81,7 +81,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -110,12 +110,12 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -144,7 +144,94 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/11/%E5%A5%B6%E9%BE%99%E9%9D%A2%E8%AF%95-sql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="violeteverisland">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="violeteverisland">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/08/11/%E5%A5%B6%E9%BE%99%E9%9D%A2%E8%AF%95-sql/" class="post-title-link" itemprop="url">奶龙面试-sql</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-08-11 13:37:28 / 修改时间：13:37:47" itemprop="dateCreated datePublished" datetime="2025-08-11T13:37:28+08:00">2025-08-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>创建表 <code>stu</code></strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> stu (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">PRIMARY KEY</span>,</span><br><span class="line">    name <span class="type">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">    score <span class="type">INT</span>,</span><br><span class="line">    description TEXT</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="情况-1：无索引"><a href="#情况-1：无索引" class="headerlink" title="情况 1：无索引"></a><strong>情况 1：无索引</strong></h3><p><strong>查询：</strong> <code>SELECT id, score, description FROM stud WHERE name &gt; &#39;yuanzhe&#39; AND score &lt; 400;</code></p>
+<h3 id="情况-2：有索引"><a href="#情况-2：有索引" class="headerlink" title="情况 2：有索引"></a><strong>情况 2：有索引</strong></h3><p><strong>索引：</strong></p>
+<ul>
+<li><code>id</code> (主键)</li>
+<li><code>name_idx</code> (<code>name</code>)</li>
+<li><code>score_idx</code> (<code>score</code>)</li>
+</ul>
+<p><strong>查询：</strong> <code>SELECT id, score, description FROM stud WHERE name &gt; &#39;yuanzhe&#39; AND score &lt; 400;</code></p>
+<hr>
+<h3 id="情况-3：LIKE查询与索引"><a href="#情况-3：LIKE查询与索引" class="headerlink" title="情况 3：LIKE查询与索引"></a><strong>情况 3：LIKE查询与索引</strong></h3><p><strong>索引：</strong></p>
+<ul>
+<li><code>id</code> (主键)</li>
+<li><code>name_idx</code> (<code>name</code>)</li>
+<li><code>score_idx</code> (<code>score</code>)</li>
+</ul>
+<p><strong>查询：</strong> <code>SELECT id, score FROM stud WHERE name LIKE &#39;yuanzhe%&#39; AND score &lt; 800;</code></p>
+<hr>
+<h3 id="情况-4：索引覆盖"><a href="#情况-4：索引覆盖" class="headerlink" title="情况 4：索引覆盖"></a><strong>情况 4：索引覆盖</strong></h3><p><strong>索引：</strong></p>
+<ul>
+<li><code>id</code> (主键)</li>
+<li><code>name_idx</code> (<code>name</code>)</li>
+<li><code>score_idx</code> (<code>score</code>)</li>
+</ul>
+<p><strong>查询：</strong> <code>SELECT id, score FROM stud WHERE score &gt;= 100;</code></p>
+<p>今天被问了这个</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/06/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%9F%A5%E8%AF%86%E5%BA%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -167,10 +254,10 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="Created: 2025-08-06 13:54:23 / Modified: 14:04:15" itemprop="dateCreated datePublished" datetime="2025-08-06T13:54:23+08:00">2025-08-06</time>
+              <time title="创建时间：2025-08-06 13:54:23 / 修改时间：14:04:15" itemprop="dateCreated datePublished" datetime="2025-08-06T13:54:23+08:00">2025-08-06</time>
             </span>
 
           
@@ -206,7 +293,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/07/29/Springboot%E9%A1%B9%E7%9B%AE%E5%85%A8%E6%B5%81%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -229,10 +316,10 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="Created: 2025-07-29 15:47:28 / Modified: 15:57:38" itemprop="dateCreated datePublished" datetime="2025-07-29T15:47:28+08:00">2025-07-29</time>
+              <time title="创建时间：2025-07-29 15:47:28 / 修改时间：15:57:38" itemprop="dateCreated datePublished" datetime="2025-07-29T15:47:28+08:00">2025-07-29</time>
             </span>
 
           
@@ -277,7 +364,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/07/28/%E6%8E%A5%E5%8F%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -300,10 +387,10 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="Created: 2025-07-28 22:01:06 / Modified: 22:05:14" itemprop="dateCreated datePublished" datetime="2025-07-28T22:01:06+08:00">2025-07-28</time>
+              <time title="创建时间：2025-07-28 22:01:06 / 修改时间：22:05:14" itemprop="dateCreated datePublished" datetime="2025-07-28T22:01:06+08:00">2025-07-28</time>
             </span>
 
           
@@ -346,7 +433,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/1970/01/01/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -369,16 +456,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="Created: 1970-01-01 00:00:01" itemprop="dateCreated datePublished" datetime="1970-01-01T00:00:01+08:00">1970-01-01</time>
+              <time title="创建时间：1970-01-01 00:00:01" itemprop="dateCreated datePublished" datetime="1970-01-01T00:00:01+08:00">1970-01-01</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-08-07 11:46:39" itemprop="dateModified" datetime="2025-08-07T11:46:39+08:00">2025-08-07</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-08-07 11:46:39" itemprop="dateModified" datetime="2025-08-07T11:46:39+08:00">2025-08-07</time>
               </span>
 
           
@@ -464,10 +551,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
@@ -486,13 +573,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -524,7 +611,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">violeteverisland</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         
@@ -640,5 +727,5 @@ window.addEventListener('pjax:success', () => {
   
 
     </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>
