@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="description" content="一个温柔的樱花风个人博客"><title>violeteverisland</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js">
+    </script><link rel="stylesheet" href="/_astro/SakuraLayout.CD2mSiUZ.css"><style>[data-astro-transition-scope="astro-4yt7pff7-1"] { view-transition-name: astro-4yt7pff7-1; }@layer astro { ::view-transition-old(astro-4yt7pff7-1) { 
+	animation-duration: 90ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both, both;
+	animation-name: astroFadeOut, astroSlideToLeft; }::view-transition-new(astro-4yt7pff7-1) { 
+	animation-duration: 210ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-delay: 30ms;
+	animation-fill-mode: both, both;
+	animation-name: astroFadeIn, astroSlideFromRight; }[data-astro-transition=back]::view-transition-old(astro-4yt7pff7-1) { 
+	animation-name: astroFadeOut, astroSlideToRight; }[data-astro-transition=back]::view-transition-new(astro-4yt7pff7-1) { 
+	animation-name: astroFadeIn, astroSlideFromLeft; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-4yt7pff7-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-4yt7pff7-1"] { 
+	animation-duration: 90ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both, both;
+	animation-name: astroFadeOut, astroSlideToLeft; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-4yt7pff7-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-4yt7pff7-1"] { 
+	animation-duration: 210ms, 220ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1), cubic-bezier(0.76, 0, 0.24, 1);
+	animation-delay: 30ms;
+	animation-fill-mode: both, both;
+	animation-name: astroFadeIn, astroSlideFromRight; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-4yt7pff7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-4yt7pff7-1"] { 
+	animation-name: astroFadeOut, astroSlideToRight; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-4yt7pff7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-4yt7pff7-1"] { 
+	animation-name: astroFadeIn, astroSlideFromLeft; }</style></head> <body> <div class="sakura-shell"> <main class="mx-auto max-w-5xl px-6 py-8" data-astro-transition-scope="astro-4yt7pff7-1"> <nav class="sakura-card sakura-nav"> <a href="/" class="text-lg font-semibold sakura-title">violeteverisland</a> <div class="flex items-center gap-5 text-sm"> <a href="/">首页</a> <a href="/blog/">博客</a> <a href="/about/">关于</a> </div> </nav>  <article class="sakura-card mx-auto max-w-3xl p-8 md:p-10"> <a href="/blog/" class="text-sm no-underline text-rose-400">← 返回博客</a> <header class="mb-8 mt-4 border-b border-rose-100 pb-6"> <p class="text-sm tracking-[0.18em] text-rose-300"> 2026/4/24 </p> <h1 class="mt-3 text-4xl font-bold leading-tight sakura-title"> 网站搭建记录 </h1> <p class="mt-4 text-base leading-8 sakura-subtitle"> 搭建记录 </p>  </header> <div class="prose max-w-none"> <h1 id="violeteverisland-搭建记录astro--樱花主题--live2d--nginx">violeteverisland 搭建记录（Astro + 樱花主题 + Live2D + Nginx）</h1>
+<h2 id="项目目标">项目目标</h2>
+<p>搭建一个：</p>
+<ul>
+<li>二次元浓度高的个人博客</li>
+<li>樱花主题、简洁、令人愉悦</li>
+<li>带 Live2D 看板娘</li>
+<li>使用 Astro 作为框架</li>
+<li>Nginx 部署</li>
+<li>开发环境与生产环境分离</li>
+</ul>
+<hr>
+<h1 id="一技术路线选择">一、技术路线选择</h1>
+<p>最终采用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>前端框架：Astro</span></span>
+<span class="line"><span>样式：Tailwind（最终回退 v3 稳定方案）</span></span>
+<span class="line"><span>博客内容：Markdown</span></span>
+<span class="line"><span>Live2D：pixi.js + pixi-live2d-display</span></span>
+<span class="line"><span>部署：Nginx 静态托管 dist</span></span>
+<span class="line"><span>开发：npm run dev</span></span></code></pre>
+<p>放弃过的路线：</p>
+<ul>
+<li>Astro SSR + 外部 Markdown 实时读取（过重，体感更卡）</li>
+<li>线上直接跑 dev server（调试方便，但不适合作为最终线上方案）</li>
+</ul>
+<p>最终结论：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>开发用 dev</span></span>
+<span class="line"><span>上线用静态 build</span></span></code></pre>
+<hr>
+<h1 id="二项目初始化">二、项目初始化</h1>
+<p>创建项目：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> create</span><span style="color:#9ECBFF"> astro@latest</span></span></code></pre>
+<p>安装依赖：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span></span></code></pre>
+<p>启动开发：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> dev</span></span></code></pre>
+<hr>
+<h1 id="三博客结构content-collections">三、博客结构（Content Collections）</h1>
+<p>目录结构：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span> ├─ content/</span></span>
+<span class="line"><span> │   └─ blog/</span></span>
+<span class="line"><span> │       └─ hello-world.md</span></span>
+<span class="line"><span> │</span></span>
+<span class="line"><span> ├─ pages/</span></span>
+<span class="line"><span> │   └─ blog/</span></span>
+<span class="line"><span> │      ├─ index.astro</span></span>
+<span class="line"><span> │      └─ [slug].astro</span></span>
+<span class="line"><span> │</span></span>
+<span class="line"><span> └─ layouts/</span></span>
+<span class="line"><span>     └─ SakuraLayout.astro</span></span></code></pre>
+<p>注意：</p>
+<p>不是 post，而是 blog。</p>
+<p>动态路由：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/pages/blog/[slug].astro</span></span></code></pre>
+<p>否则会出现：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Missing parameter: slug</span></span></code></pre>
+<p>以及：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>404 /blog/hello-world/</span></span></code></pre>
+<hr>
+<h1 id="四content-schema-踩坑">四、Content Schema 踩坑</h1>
+<p>文章 frontmatter 必须包含：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="md"><code><span class="line"><span style="color:#79B8FF;font-weight:bold">---</span></span>
+<span class="line"><span style="color:#E1E4E8">title: Hello World</span></span>
+<span class="line"><span style="color:#E1E4E8">description: 我的第一篇博客</span></span>
+<span class="line"><span style="color:#E1E4E8">pubDate: 2026-04-24</span></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">---</span></span></code></pre>
+<p>缺 description 会报：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>InvalidContentEntryDataError</span></span></code></pre>
+<hr>
+<h1 id="五樱花主题设计">五、樱花主题设计</h1>
+<p>主题关键词：</p>
+<ul>
+<li>Sakura Pink</li>
+<li>轻量卡片风</li>
+<li>柔和留白</li>
+<li>日系博客氛围</li>
+</ul>
+<p>统一布局：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/layouts/SakuraLayout.astro</span></span></code></pre>
+<p>网站标题改成：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">title</span><span style="color:#E1E4E8">>violeteverisland&#x3C;/</span><span style="color:#85E89D">title</span><span style="color:#E1E4E8">></span></span></code></pre>
+<p>标签页标题固定：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>violeteverisland</span></span></code></pre>
+<hr>
+<h1 id="六live2d-看板娘">六、Live2D 看板娘</h1>
+<h2 id="使用模型">使用模型</h2>
+<p>模型：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>HCw_Cyrene.model3.json</span></span></code></pre>
+<p>放在：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>public/live2d/model/</span></span></code></pre>
+<hr>
+<h2 id="安装依赖">安装依赖</h2>
+<p>最终稳定组合：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> pixi.js@6</span><span style="color:#9ECBFF"> pixi-live2d-display</span></span></code></pre>
+<p>（不要用 Pixi 7/8，会有 transform / interaction 冲突）</p>
+<hr>
+<h2 id="cubism-runtime">Cubism Runtime</h2>
+<p>布局 head 中：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span></span>
+<span class="line"><span style="color:#B392F0">is:inline</span></span>
+<span class="line"><span style="color:#B392F0">src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span></code></pre>
+<hr>
+<h2 id="踩过的坑">踩过的坑</h2>
+<h3 id="1">1.</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Could not find Cubism 2 runtime</span></span></code></pre>
+<p>原因：错误用了 Cubism2 路径。</p>
+<p>改成：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { Live2DModel } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "pixi-live2d-display/cubism4"</span></span></code></pre>
+<hr>
+<h3 id="2">2.</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>updateLocalTransform is not a function</span></span></code></pre>
+<p>原因：Pixi 版本不匹配。</p>
+<p>解决：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">pixi.js@6</span></span></code></pre>
+<hr>
+<h3 id="3">3.</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Outdated Optimize Dep</span></span></code></pre>
+<p>解决：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">rm</span><span style="color:#79B8FF"> -rf</span><span style="color:#9ECBFF"> node_modules/.vite</span><span style="color:#9ECBFF"> .astro</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> dev</span><span style="color:#79B8FF"> --</span><span style="color:#79B8FF"> --force</span></span></code></pre>
+<hr>
+<h2 id="延迟加载优化">延迟加载优化</h2>
+<p>改成后加载，减轻首屏压力。</p>
+<hr>
+<h2 id="clientrouter-持久化">ClientRouter 持久化</h2>
+<p>尝试过：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">ClientRouter</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">transition:persist</span></span></code></pre>
+<p>结论：复杂度高，收益有限，放弃。</p>
+<hr>
+<h1 id="七部署最终方案">七、部署（最终方案）</h1>
+<h2 id="构建">构建</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span></span></code></pre>
+<hr>
+<h2 id="nginx">Nginx</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="nginx"><code><span class="line"><span style="color:#F97583">server</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    listen </span><span style="color:#E1E4E8">127.0.0.1:54321;</span></span>
+<span class="line"><span style="color:#F97583">    server_name </span><span style="color:#E1E4E8">localhost;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    root </span><span style="color:#E1E4E8">/home/jy/myblog/sakura-blog/dist;</span></span>
+<span class="line"><span style="color:#F97583">    index </span><span style="color:#E1E4E8">index.html;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    location</span><span style="color:#B392F0"> / </span><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#F97583">        try_files </span><span style="color:#E1E4E8">$uri $uri/ /index.html;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>检查：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> nginx</span><span style="color:#79B8FF"> -t</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> reload</span><span style="color:#9ECBFF"> nginx</span></span></code></pre>
+<hr>
+<h1 id="八开发环境">八、开发环境</h1>
+<p>服务器开发：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> dev</span><span style="color:#79B8FF"> --</span><span style="color:#79B8FF"> --host</span><span style="color:#79B8FF"> 127.0.0.1</span><span style="color:#79B8FF"> --port</span><span style="color:#79B8FF"> 4321</span></span></code></pre>
+<p>域名白名单：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#B392F0">vite</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#B392F0">  server</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#B392F0">    allowedHosts</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#9ECBFF">      'www.violeteverisland.space'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      'violeteverisland.space'</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>否则会报：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Blocked request. This host is not allowed.</span></span></code></pre>
+<hr>
+<h1 id="九tailwind-大坑与修复">九、Tailwind 大坑与修复</h1>
+<p>曾使用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>@tailwindcss/vite</span></span>
+<span class="line"><span>Tailwind v4</span></span></code></pre>
+<p>构建炸：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Missing field tsconfigPaths</span></span></code></pre>
+<p>最终回退：</p>
+<h2 id="卸载">卸载</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> uninstall</span><span style="color:#9ECBFF"> @tailwindcss/vite</span><span style="color:#9ECBFF"> tailwindcss</span></span></code></pre>
+<hr>
+<h2 id="安装-v3">安装 v3</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -D</span><span style="color:#9ECBFF"> tailwindcss@3.4.17</span><span style="color:#9ECBFF"> postcss</span><span style="color:#9ECBFF"> autoprefixer</span></span></code></pre>
+<hr>
+<h2 id="globalcss">global.css</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#F97583">@tailwind</span><span style="color:#E1E4E8"> base;</span></span>
+<span class="line"><span style="color:#F97583">@tailwind</span><span style="color:#E1E4E8"> components;</span></span>
+<span class="line"><span style="color:#F97583">@tailwind</span><span style="color:#E1E4E8"> utilities;</span></span></code></pre>
+<p>不再用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#F97583">@import</span><span style="color:#9ECBFF"> "tailwindcss"</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<hr>
+<h2 id="tailwindconfigcjs">tailwind.config.cjs</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#79B8FF">module</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">exports</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">content:[</span></span>
+<span class="line"><span style="color:#9ECBFF">'./src/**/*.{astro,js,ts,md,mdx}'</span></span>
+<span class="line"><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#E1E4E8">theme:{extend:{}},</span></span>
+<span class="line"><span style="color:#E1E4E8">plugins:[]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<hr>
+<h1 id="十最终工作流">十、最终工作流</h1>
+<h2 id="写文章">写文章</h2>
+<p>编辑：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/content/blog/*.md</span></span></code></pre>
+<p>然后：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">./deploy.sh</span></span></code></pre>
+<hr>
+<h2 id="deploysh">deploy.sh</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D">#!/bin/bash</span></span>
+<span class="line"><span style="color:#79B8FF">set</span><span style="color:#79B8FF"> -e</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> /home/jy/myblog/sakura-blog</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> pull</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> build</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> nginx</span><span style="color:#79B8FF"> -t</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> reload</span><span style="color:#9ECBFF"> nginx</span></span></code></pre>
+<hr>
+<h1 id="十一最终保留依赖">十一、最终保留依赖</h1>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">astro</span></span>
+<span class="line"><span style="color:#B392F0">@astrojs/mdx</span></span>
+<span class="line"><span style="color:#B392F0">@astrojs/sitemap</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">pixi.js@6</span></span>
+<span class="line"><span style="color:#B392F0">pixi-live2d-display</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">tailwindcss@3.4.17</span></span>
+<span class="line"><span style="color:#B392F0">postcss</span></span>
+<span class="line"><span style="color:#B392F0">autoprefixer</span></span></code></pre>
+<p>删除过的无效依赖：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">@astrojs/node</span></span>
+<span class="line"><span style="color:#B392F0">gray-matter</span></span>
+<span class="line"><span style="color:#B392F0">marked</span></span>
+<span class="line"><span style="color:#B392F0">sanitize-html</span></span>
+<span class="line"><span style="color:#B392F0">@types/sanitize-html</span></span>
+<span class="line"><span style="color:#B392F0">@tailwindcss/vite</span></span>
+<span class="line"><span style="color:#B392F0">@jannchie/pixi-live2d-display</span></span></code></pre>
+<hr>
+<h1 id="十二经验总结">十二、经验总结</h1>
+<p>这次踩坑主要有三类：</p>
+<h2 id="astro-路由坑">Astro 路由坑</h2>
+<ul>
+<li>post/blog 路径混乱</li>
+<li>slug 参数问题</li>
+<li>动态路由 404</li>
+</ul>
+<hr>
+<h2 id="live2d-生态坑">Live2D 生态坑</h2>
+<ul>
+<li>Cubism runtime</li>
+<li>Pixi 版本兼容</li>
+<li>Vite optimize 缓存</li>
+</ul>
+<hr>
+<h2 id="tailwind-新生态坑">Tailwind 新生态坑</h2>
+<ul>
+<li>v4 插件不稳定</li>
+<li>回退 v3 最稳</li>
+</ul>
+<hr>
+<p>最终架构：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>本地开发：npm run dev</span></span>
+<span class="line"><span>线上部署：静态 dist + nginx</span></span>
+<span class="line"><span>内容管理：Markdown</span></span>
+<span class="line"><span>视觉增强：Live2D</span></span></code></pre>
+<p>这套是目前最平衡的一版。</p>
+<hr>
+<h2 id="下一步可继续升级">下一步可继续升级</h2>
+<p>以后可以做：</p>
+<ul>
+<li>樱花飘落特效</li>
+<li>看板娘气泡对白</li>
+<li>评论系统（giscus）</li>
+<li>RSS 订阅</li>
+<li>音乐播放器</li>
+<li>PWA 离线博客</li>
+</ul>
+<hr>
+<p>Built with Astro · violeteverisland</p> </div> </article>  <footer class="sakura-footer">
+春の日の小さな記録 · Made with Astro
+</footer> </main> </div> <div id="live2d-widget" class="live2d-widget" data-astro-cid-cfxw2slw data-astro-transition-persist="astro-6hniyr3w-2"> <canvas id="live2d-canvas" data-astro-cid-cfxw2slw></canvas> </div> <script type="module" src="/_astro/Live2DWidget.astro_astro_type_script_index_0_lang.BGA54z3K.js"></script> </body></html>
